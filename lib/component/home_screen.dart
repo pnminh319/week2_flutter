@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:week2/component/cus_bottombar.dart';
 import 'package:week2/component/drawer.dart';
 import 'package:week2/const/categories.dart';
 import 'package:week2/const/listitems.dart';
@@ -40,8 +41,16 @@ final List<Color> colors = [
 final List texts = ["Men", "Women", "Baby & Kids", "Bags", "Decor"];
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
+  setBottomBarIndex(index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
         drawer: const DrawerApp(),
@@ -147,6 +156,82 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }),
             ),
+          ],
+        ),
+        bottomNavigationBar: Stack(
+          children: [
+            Positioned(
+              // bottom: 0,
+              // left: 0,
+              child: SizedBox(
+                width: size.width,
+                height: 80,
+                child: Stack(
+                  // ignore: deprecated_member_use
+                  overflow: Overflow.visible,
+                  children: [
+                    CustomPaint(
+                      size: Size(size.width, 80),
+                      painter: RPSCustomPainter(),
+                    ),
+                    SizedBox(
+                      width: size.width,
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.home,
+                              color: currentIndex == 0
+                                  ? Colors.white
+                                  : Colors.grey.shade400,
+                            ),
+                            onPressed: () {
+                              setBottomBarIndex(0);
+                            },
+                            splashColor: Colors.white,
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.favorite,
+                                color: currentIndex == 1
+                                    ? Colors.white
+                                    : Colors.grey.shade400,
+                              ),
+                              onPressed: () {
+                                setBottomBarIndex(1);
+                              }),
+                          // Container(
+                          //   width: size.width * 0.20,
+                          // ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.shopping_bag,
+                                color: currentIndex == 2
+                                    ? Colors.white
+                                    : Colors.grey.shade400,
+                              ),
+                              onPressed: () {
+                                setBottomBarIndex(2);
+                              }),
+                          IconButton(
+                              icon: Icon(
+                                Icons.person,
+                                color: currentIndex == 3
+                                    ? Colors.white
+                                    : Colors.grey.shade400,
+                              ),
+                              onPressed: () {
+                                setBottomBarIndex(3);
+                              }),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

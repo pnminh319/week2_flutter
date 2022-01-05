@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:week2/const/description_page.dart';
 import 'package:week2/const/more_info_page.dart';
@@ -44,9 +45,21 @@ class _HomeDetailState extends State<HomeDetail> with TickerProviderStateMixin {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(300),
         child: AppBar(
-          actions: const [
-            IconButton(onPressed: null, icon: Icon(Icons.favorite)),
-            IconButton(onPressed: null, icon: Icon(Icons.shopping_bag))
+          actions: [
+            const IconButton(onPressed: null, icon: Icon(Icons.favorite)),
+            Badge(
+              position: BadgePosition.topEnd(top: -5, end: -10),
+              badgeContent: const Text(
+                '3',
+                style: TextStyle(color: Colors.white),
+              ),
+              child: const Icon(
+                Icons.add_shopping_cart,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            )
           ],
           flexibleSpace: Container(
             decoration: BoxDecoration(
